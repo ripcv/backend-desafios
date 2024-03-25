@@ -45,13 +45,20 @@ class ProductManager {
 
 const producto = new ProductManager()
 
+
+//Llamada inicial
+const productos = producto.getProducts()
+console.log(productos)
+
 //Agregando Productos
 producto.addProducts("Caña de Pescar","Para Rio",15000,"img/caña.png",15,22)
 
+//Se lista productos ingresados
+const productosActualizados = producto.getProducts()
+console.log(productosActualizados)
 
-//se lista productos ingresados
-const productos = producto.getProducts()
-console.log(productos)
+//Se re-ingresa producto para probar error
+producto.addProducts("Caña de Pescar","Para Rio",15000,"img/caña.png",15,22)
 
 //Se busca producto especifico
 const productoById = producto.getProductsById(2)
