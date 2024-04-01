@@ -4,73 +4,109 @@ const fs = require('fs').promises
 
 
 class ProductManager {
-    constructor (){
-        this.productos=[]
-        this.path="productManager.js"
+    constructor() {
+        this.path = "./desafio_dos/productManager.js"
+        this.nextId = 1
+    }
+
+    async getProducts() {
+        try {
+            const product = await fs.readFile(this.path, 'utf-8')
+            return JSON.parse(product)
+        } catch (error) {
+            if (error.code === 'ENOENT') {
+                return []
+            } else {
+                throw error
+            }
+        }
     }
     
-    getProducts(){
-       return this.productos
+    async addProduct(producto) {
+        try {
+            let products = await this.getProducts()
+            producto.id = this.nextId++
+            const productExist = await this.getProductsById(producto.id)
+            if (productExist) {
+                console.log("El Id del producto ya se encuentra creado")
+                return
+            }
+            products.push(producto)
+            await fs.writeFile(this.path, JSON.stringify(products, null, 2))
+            console.log("Producto creado correctamente")
+        } catch (error) {
+            console.error("Error al crear el producto")
+        }
+    }
+ 
+    async getProductsById(id) {
+        try {
+            let products = await this.getProducts()
+            const producto_encontrado = await products.find((p) => p.id === id)
+            if (!producto_encontrado) {
+                console.log("El Producto no se encuentra creado")
+                return 
+            }
+            return producto_encontrado
+
+        } catch (error) {
+            console.error("Error al buscar el producto", error)
+            return []
+        }
     }
 
-    addProducts(producto){
-  /*       if(!producto.title || !producto.description || !producto.price || !producto.thumbnail || !producto.code || !producto.stock){
-            console.log("Todos los datos son requeridos, favor verificar")
-            return
+    async updateProduct() {
+        try {
+
+        } catch (error) {
+
         }
-        const producto = {
-            id : product_id,
-            title,
-            description,
-            price,
-            thumbnail,
-            code,
-            stock
-        } */
-        const producto_encontrado = this.productos.find((p)=>p.code === producto.code)
-        if(producto_encontrado){
-            console.log("El Producto ya se encuentra ingresado")
-            return
-        }
-        producto.id = this.productos.length + 1
-        this.productos.push(producto)
     }
 
-    getProductsById(id){
-        const producto_encontrado = this.productos.find((p)=>p.id === id)
-        if(!producto_encontrado){
-          return "Producto no encontrado"
+    async deleteProduct() {
+        try {
+
+        } catch (error) {
 
         }
-        console.log("El producto encontrado es: ")
-        return producto_encontrado
     }
-
 }
-
 
 
 const producto = new ProductManager()
 
+producto.addProduct({
+    title: "Caña de pescar",
+    description: "Perfecta para rios",
+    price: 15000,
+    thumbnail: 'img/caña.jpg',
+    code: 'P001',
+    stock: 30
+})
+/*
+producto.addProduct({
+    title: "Caña de pescar",
+    description: "Perfecta para rios",
+    price: 15000,
+    thumbnail: 'img/caña.jpg',
+    code: 'P001',
+    stock: 30
+})
+producto.addProduct({
+    title: "Caña de pescar",
+    description: "Perfecta para rios",
+    price: 15000,
+    thumbnail: 'img/caña.jpg',
+    code: 'P001',
+    stock: 30
+})
 
-//Llamada inicial
-const productos = producto.getProducts()
-console.log(productos)
+producto.getProducts()
+.then(producto => console.log('Productos', producto))
+.catch(error => console.error("Error al consultar usuarios", error))
+ */
 
-//Agregando Productos
-producto.addProducts({title:"Caña de Pescar",
-description:"Para Rio",precio:15000,thumbnail:"img/caña.png",code:15,stock:22})
-
-
-//Se lista productos ingresados
-const productosActualizados = producto.getProducts()
-console.log(productosActualizados)
-
-//Se re-ingresa producto para probar error
-
-producto.addProducts({title:"Caña de Pescar",
-description:"Para Rio",precio:15000,thumbnail:"img/caña.png",code:15,stock:22})
- 
-//Se busca producto especifico
-const productoById = producto.getProductsById(1)
-console.log(productoById) 
+/*producto.getProductsById(1)
+.then(producto => console.log("Producto Actualizar ", producto))
+.catch(error => console.error("Error al Obtener el producto"))
+*/
