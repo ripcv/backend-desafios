@@ -20,7 +20,7 @@ class ProductManager {
             }
         }
     }
-    
+    // Creamos una funcion para guardar los productos.
     async saveProducts(products){
         await fs.writeFile(this.path, JSON.stringify(products, null, 2))
     }
@@ -28,6 +28,7 @@ class ProductManager {
     async addProduct(producto) {
         try {
           const products = await this.getProducts();
+          // Filtramos que el producto "codigo" no este creado
           const productExists = products.find((p) => p.code === producto.code);
           if (productExists) {
             console.log('El producto ya se encuentra ingresado.');
@@ -71,6 +72,8 @@ class ProductManager {
                 console.log("No se pudo actualizar, el producto no existe") 
                 return
               }
+
+              // Filtramos que los datos vacios no sobreescriban los existentes
              const updateProduct = { ...products[productIndex] }
              for (const key in datos){
                 if (datos[key] !== undefined && datos[key] !== ""){
