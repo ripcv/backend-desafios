@@ -36,12 +36,12 @@ await producto.getProductsById(2)
 
 //Se Actualiza producto
 const updateProduct = {
-    title:"Morral",
+    title:"Morrl",
     description: "",
     price: "",
     thumbnail:"",
     code:"",
-    stock: "2000"
+    stock: ""
 };
 await producto.updateProduct(3,updateProduct)
 
