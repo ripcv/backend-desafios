@@ -29,7 +29,7 @@ await producto.addProduct({
 console.log(await producto.getProducts())
  
 //Se llama producto especifico
-await producto.getProductsById(3)
+await producto.getProductsById(2)
 
  /* Tanto el actualizar como eliminar se crea
  con un id que no existe, cambiar para su funcionamiento */
@@ -46,7 +46,7 @@ const updateProduct = {
 await producto.updateProduct(3,updateProduct)
 
 //Eliminamos productos
-await producto.deleteProduct(2)
+await producto.deleteProduct(3)
 
 // se vuelve a mostrar listado de productos
 console.log(await producto.getProducts())
