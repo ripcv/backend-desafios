@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch desafio_dos/app.js "
+    "start": "node --watch desafio_dos/products.js "
   },
   "keywords": [],
   "author": "",
