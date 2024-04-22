@@ -1,0 +1,92 @@
+[
+  {
+    "title": "Caña de pescar",
+    "description": "Perfecta para rios",
+    "price": 15000,
+    "thumbnail": "img/caña.jpg",
+    "code": "P001",
+    "stock": 15,
+    "id": 1
+  },
+  {
+    "title": "Caña de pescar con carrete",
+    "description": "Ideal para pescadores principiantes",
+    "price": 20000,
+    "thumbnail": "img/caña_carrete.jpg",
+    "code": "P002",
+    "stock": 10,
+    "id": 2
+  },
+  {
+    "title": "Caña de pescar de alta gama",
+    "description": "Fabricada con materiales de calidad",
+    "price": 35000,
+    "thumbnail": "img/caña_alta_gama.jpg",
+    "code": "P003",
+    "stock": 5,
+    "id": 3
+  },
+  {
+    "title": "Caña de pescar telescópica",
+    "description": "Fácil de transportar y almacenar",
+    "price": 18000,
+    "thumbnail": "img/caña_telescopica.jpg",
+    "code": "P004",
+    "stock": 20,
+    "id": 4
+  },
+  {
+    "title": "Caña de pescar para pesca en alta mar",
+    "description": "Resistente a las condiciones marinas",
+    "price": 25000,
+    "thumbnail": "img/caña_alta_mar.jpg",
+    "code": "P005",
+    "stock": 8,
+    "id": 5
+  },
+  {
+    "title": "Caña de pescar ultraligera",
+    "description": "Para pescadores que buscan sensibilidad",
+    "price": 22000,
+    "thumbnail": "img/caña_ultraligera.jpg",
+    "code": "P006",
+    "stock": 12,
+    "id": 6
+  },
+  {
+    "title": "Caña de pescar para niños",
+    "description": "Diseñada especialmente para pequeñas manos",
+    "price": 12000,
+    "thumbnail": "img/caña_niños.jpg",
+    "code": "P007",
+    "stock": 15,
+    "id": 7
+  },
+  {
+    "title": "Caña de pescar de acción rápida",
+    "description": "Para capturas ágiles y precisas",
+    "price": 28000,
+    "thumbnail": "img/caña_accion_rapida.jpg",
+    "code": "P008",
+    "stock": 7,
+    "id": 8
+  },
+  {
+    "title": "Caña de pescar para pesca en hielo",
+    "description": "Adaptada para condiciones extremas",
+    "price": 30000,
+    "thumbnail": "img/caña_hielo.jpg",
+    "code": "P009",
+    "stock": 3,
+    "id": 9
+  },
+  {
+    "title": "Caña de pescar de viaje",
+    "description": "Compacta y fácil de llevar en tus aventuras",
+    "price": 24000,
+    "thumbnail": "img/caña_viaje.jpg",
+    "code": "P010",
+    "stock": 18,
+    "id": 10
+  }
+]

@@ -10,7 +10,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 //Llamamos dependencias de archivos para su manejo del desafio 2
-const ProductManager = require('../../desafio_dos/productManager')
+const ProductManager = require('./productManager')
 
 async function appProducts(){
 const producto = new ProductManager()
