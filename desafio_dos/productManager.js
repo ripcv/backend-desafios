@@ -5,7 +5,7 @@ const fs = require('fs').promises
 
 class ProductManager {
     constructor() {
-        this.path = "../../desafio_dos/products.json"
+        this.path = ".desafio_dos/products.json"
     }
 
     async getProducts() {
