@@ -22,7 +22,6 @@ app.use(express.static(__dirname + '/public'))
 app.use('/', viewsRouter)
 
 
-async function appProducts(){
 const producto = new ProductManager()
 
 app.get('/index', async(req,res) =>{
@@ -52,6 +51,3 @@ socketServer.on('connection', async (socket) => {
          socketServer.emit('startProducts', updateProduct)
     })
 })
-}
-
-appProducts()
