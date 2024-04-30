@@ -3,7 +3,7 @@ import fs from 'fs/promises'
 
 class ProductManager {
     constructor() {
-        this.path = "./desafio_tres/src/products.json"
+        this.path = "./desafio_cuatro/src/products.json"
     }
 
     async getProducts() {

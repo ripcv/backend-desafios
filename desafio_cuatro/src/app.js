@@ -37,12 +37,17 @@ app.get('/index', async(req,res) =>{
 
 })
 
-
-socketServer.on('connection', socket => {
+socketServer.on('connection', async (socket) => {
     console.log("Nuevo Cliente conectado")
-    socket.on('createProduct', data => {
-        console.log('Producto Creado', data)
-       // socketServer.emit('messageLogs', messages)
+    //obtenemos los productos
+    const products = await producto.getProducts()
+    
+    socketServer.emit('startProducts', products)
+
+    socket.on('createProduct', async (data) => {
+         await producto.addProduct(data)
+         const updateProduct = await producto.getProducts()
+         socketServer.emit('startProducts', updateProduct)
     })
 })
 }
