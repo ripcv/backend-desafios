@@ -81,7 +81,6 @@ class ProductManager {
              products[productIndex] = updateProduct;
             await this.saveProducts(products)
             console.log("Producto Actualizado Correctamente")
-            console.log(updateProduct)
         } catch (error) {
             console.error("Error al actualizar el producto:", error);
         }
@@ -97,7 +96,6 @@ class ProductManager {
                 return
               }
             products.splice(productIndex,1)
-            console.log(products)
             await this.saveProducts(products)
             console.log("Producto Eliminado con Exito")
             return 
