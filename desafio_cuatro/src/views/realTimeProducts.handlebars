@@ -35,11 +35,7 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    productos();
-});
 
-function productos() {
     const socket = io();
 
     document.getElementById('agregarProducto').addEventListener('submit', async (event) => {
@@ -89,6 +85,5 @@ function productos() {
             });
         });
     });
-}
 
 </script>
