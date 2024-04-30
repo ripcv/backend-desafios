@@ -6,7 +6,7 @@
     "price": 15000,
     "stock": "500",
     "category": "Conciertos",
-    "thumbnails": "/img/festival.png",
+    "thumbnail": "/img/festival.png",
     "id": 1,
     "status": true
   },
@@ -17,7 +17,7 @@
     "price": 20000,
     "stock": "300",
     "category": "Conciertos",
-    "thumbnails": "/img/jazz.png",
+    "thumbnail": "/img/jazz.png",
     "id": 2,
     "status": true
   },
@@ -28,7 +28,7 @@
     "price": 10000,
     "stock": "400",
     "category": "Cine",
-    "thumbnails": "/img/cine.png",
+    "thumbnail": "/img/cine.png",
     "id": 3,
     "status": true
   },
@@ -39,7 +39,7 @@
     "price": 5000,
     "stock": "200",
     "category": "Gastronomía",
-    "thumbnails": "/img/gastronomia.png",
+    "thumbnail": "/img/gastronomia.png",
     "id": 4,
     "status": true
   },
@@ -50,7 +50,7 @@
     "price": 8000,
     "stock": "100",
     "category": "Arte",
-    "thumbnails": "/img/arte.png",
+    "thumbnail": "/img/arte.png",
     "id": 5,
     "status": true
   }

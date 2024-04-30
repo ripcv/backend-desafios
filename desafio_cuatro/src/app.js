@@ -45,7 +45,9 @@ socketServer.on('connection', async (socket) => {
     socketServer.emit('startProducts', products)
 
     socket.on('createProduct', async (data) => {
+        //agregamos el producto
          await producto.addProduct(data)
+         //volvemos a recuperar los productos
          const updateProduct = await producto.getProducts()
          socketServer.emit('startProducts', updateProduct)
     })
