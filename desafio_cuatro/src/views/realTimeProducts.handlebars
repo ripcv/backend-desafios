@@ -1,11 +1,71 @@
-<h1>Hola {{user.name}}</h1>
-{{#if isAdmin}}
-{{#each food}}
 <div>
-    <p>{{this.name}}</p>
-    <p>{{this.price}}</p>
+    <h1>Ingreso de Productos</h1>
+    <form id="agregarProducto">
+        <label for="productTitle">Titulo</label>
+        <input type="text" id="productTitle" name="productTitle">
+        <label for="productDescription">Descripción</label>
+        <input type="text" id="productDescription" name="productDescription">
+        <label for="productPrice">Precio</label>
+        <input type="number" name="productPrice" id="productPrice">
+        <label for="productThumbnail">Thumbnail</label>
+        <input type="text" name="productThumbnail" id="productThumbnail">
+        <label for="productCode">Code</label>
+        <input type="text" id="productCode" name="productCode">
+        <label for="productStock">Stock</label>
+        <input type="number" name="productStock" id="productStock">
+        <button type="submit">Crear Producto</button>
+    </form>
 </div>
-{{/each}}
-{{else}}
-<p>No eres admin</p>
-{{/if}}
+<div>
+    <h1>Productos Tiempo Real</h1>
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>Titulo</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Thumbnail</th>
+            <th>Code</th>
+            <th>Stock</th>
+        </thead>
+        <tbody>
+            {{#each productoLimit}}
+            <tr>
+            <td>{{this.id}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.thumbnail}}</td>
+            <td>{{this.code}}</td>
+            <td>{{this.stock}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+ const socket = io();
+        document.getElementById('agregarProducto').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+        const productTitle = document.getElementById('productTitle').value;
+        const productDescription = document.getElementById('productDescription').value;
+        const productPrice = document.getElementById('productPrice').value;
+        const productThumbnail = document.getElementById('productThumbnail').value;
+        const productCode = document.getElementById('productCode').value;
+        const productStock = document.getElementById('productStock').value;
+
+        socket.emit('createProduct',{
+            title: productTitle,
+            description: productDescription,
+            price: productPrice,
+            thumbnail: productThumbnail,
+            code: productCode,
+            stock: productStock
+        })
+        });
+
+        
+</script>

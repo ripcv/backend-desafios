@@ -19,13 +19,13 @@ app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname + '/views')
 app.set('view engine', 'handlebars')
 app.use(express.static(__dirname + '/public'))
-app.use('/realtimeproducts', viewsRouter)
+app.use('/', viewsRouter)
 
 
 async function appProducts(){
 const producto = new ProductManager()
 
-app.use('/', async(req,res) =>{
+app.get('/index', async(req,res) =>{
     let limit = parseInt(req.query.limit)
     let productoLimit = [...await producto.getProducts()]
     if(!isNaN(limit) && limit > 0){
@@ -40,9 +40,9 @@ app.use('/', async(req,res) =>{
 
 socketServer.on('connection', socket => {
     console.log("Nuevo Cliente conectado")
-    socket.on('message', data => {
-        messages.push(data)
-        socketServer.emit('messageLogs', messages)
+    socket.on('createProduct', data => {
+        console.log('Producto Creado', data)
+       // socketServer.emit('messageLogs', messages)
     })
 })
 }
