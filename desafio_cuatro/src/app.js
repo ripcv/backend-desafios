@@ -39,4 +39,13 @@ socketServer.on('connection', async (socket) => {
          const updateProduct = await producto.getProducts()
          socketServer.emit('startProducts', updateProduct)
     })
+
+    socket.on('deleteProductId', async (data) => {
+        //eliminamos el producto
+        await producto.deleteProduct(data)
+         //volvemos a recuperar los productos
+         const updateProduct = await producto.getProducts()
+         socketServer.emit('startProducts', updateProduct)
+    })
+
 })

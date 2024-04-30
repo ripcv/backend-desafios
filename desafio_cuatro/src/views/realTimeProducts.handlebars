@@ -35,9 +35,15 @@
 <script src="/socket.io/socket.io.js"></script>
 
 <script>
- const socket = io();
-        document.getElementById('agregarProducto').addEventListener('submit', async (event) => {
-            event.preventDefault();
+document.addEventListener('DOMContentLoaded', () => {
+    productos();
+});
+
+function productos() {
+    const socket = io();
+
+    document.getElementById('agregarProducto').addEventListener('submit', async (event) => {
+        event.preventDefault();
 
         const productTitle = document.getElementById('productTitle').value;
         const productDescription = document.getElementById('productDescription').value;
@@ -46,33 +52,43 @@
         const productCode = document.getElementById('productCode').value;
         const productStock = document.getElementById('productStock').value;
 
-        socket.emit('createProduct',{
+        socket.emit('createProduct', {
             title: productTitle,
             description: productDescription,
             price: productPrice,
             thumbnail: productThumbnail,
             code: productCode,
             stock: productStock
-        })
         });
+    });
 
-        socket.on("startProducts", products => {
+    socket.on("startProducts", products => {
         const productTable = document.getElementById('productTable');
-        productTable.innerHTML = ''
+        productTable.innerHTML = '';
 
         products.forEach(product => {
-            const tr = document.createElement('tr')
-                tr.innerHTML = `
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
                 <td>${product.id}</td>
                 <td>${product.title}</td>
                 <td>${product.description}</td>
                 <td>${product.price}</td>
                 <td>${product.thumbnail}</td>
                 <td>${product.code}</td>
-                <td>${product.stock}</td>`
-                ;
-                productTable.appendChild(tr);
-     })
-     })
+                <td>${product.stock}</td>
+                <td><button type="button" class="deleteButton" data-product-id="${product.id}">Eliminar</button></td>`;
+            productTable.appendChild(tr);
+        });
+
+        const deleteButtons = document.querySelectorAll('.deleteButton');
+        deleteButtons.forEach(deleteButton => {
+            deleteButton.addEventListener('click', () => {
+                const productId = parseInt(deleteButton.dataset.productId);
+                console.log("Botón eliminado:", productId);
+                 socket.emit('deleteProductId', productId)
+            });
+        });
+    });
+}
 
 </script>
