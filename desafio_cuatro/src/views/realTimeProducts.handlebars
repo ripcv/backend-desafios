@@ -80,7 +80,6 @@
         deleteButtons.forEach(deleteButton => {
             deleteButton.addEventListener('click', () => {
                 const productId = parseInt(deleteButton.dataset.productId);
-                console.log("Botón eliminado:", productId);
                  socket.emit('deleteProductId', productId)
             });
         });
