@@ -8,7 +8,7 @@ import sessionsRouter from './routers/api/sessions.js';
 import viewsRouter from './routers/views.js';
 import productRouters from './routers/product.router.js'
 import cartRouters from './routers/cart.router.js'
-
+import __dirname from './utils.js'
 
 const app = express();
 
@@ -17,7 +17,7 @@ app.engine('hbs', engine({
     defaultLayout: 'main',
 }));
 app.set('view engine', 'hbs');
-app.set('views', './views');
+app.set('views', './desafio_cinco/src/views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ app.use(session({
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: 'mongodb+srv://gefalleneengel:mongoose@cluster0.dbhlofu.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0' }),
 }));
-
+app.use(express.static(__dirname + '/public'))
 app.use('/api/sessions', sessionsRouter);
 app.use('/', viewsRouter);
 app.use('/api/products', productRouters)
