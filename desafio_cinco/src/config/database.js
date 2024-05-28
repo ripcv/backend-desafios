@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+dotenv.config()
 
-mongoose.connect('mongodb+srv://gefalleneengel:mongoose@cluster0.dbhlofu.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0');
+mongoose.connect(process.env.MONGO_URL);
 
 const db = mongoose.connection;
 

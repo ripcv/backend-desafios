@@ -1,9 +1,10 @@
 import { Router } from "express";
 import productModel from "../dao/models/product.model.js";
+import { isAuthenticated } from "../middleware/auth.js";
 
 const router = Router();
 
-router.get('/', async(req, res) => {
+router.get('/', isAuthenticated,  async(req, res) => {
     let  { limit = 10 , page = 1 ,sort, query } = req.query;
     limit = parseInt(limit)
     page = parseInt(page)
@@ -47,7 +48,7 @@ router.get('/', async(req, res) => {
         }
 
 
-        res.render('products',{results,categories})
+        res.render('products',{results,categories,user: req.session.user})
     } catch (error) {
         console.log(error)
     }

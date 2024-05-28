@@ -1,16 +1,30 @@
 <div>
     <h1>Productos</h1>
+    <div class="userInfo">
+        <div class="user">
+        <p>Bienvenido {{user.first_name}}&nbsp;{{user.last_name}}</p>
+        <p>email: {{user.email}}</p>
+        <p>role: {{user.role}}</p>
+        </div>
+        <div class="logout">
+            <form action="/api/sessions/logout" method="POST">
+                <button type="submit">Cerrar Sesión</button>
+            </form>
+        </div>
+    </div>
 
     <h5>Categorias para Filtrar</h5>
-    <div class="categories"> 
-        <p >
+
+    <div class="categories">
+        <p>
             <a href="/api/products">Todas</a>
         </p>
         {{#each categories}}
-     <p>
-        <a href="/api/products?query={{this}}">{{this}}</a>
+        <p>
+            <a href="/api/products?query={{this}}">{{this}}</a>
         </p>
-    {{/each}}</div>
+        {{/each}}
+    </div>
     <table class="table_display">
         <thead>
             <th>Titulo</th>
@@ -25,27 +39,30 @@
         <tbody>
             {{#each results.payload}}
             <tr>
-            <td>{{this.title}}</td>
-            <td>{{this.description}}</td>
-            <td>{{this.price}}</td>
-            <td>{{this.thumbnail}}</td>
-            <td>{{this.category}}</td>
-            <td>{{this.code}}</td>
-            <td>{{this.stock}}</td>
-            <td><form action="/api/carts/" method="POST">
-  <button type="submit" class="add-to-cart" data-id="{{id}}">Agregar al carrito</button>
-  <input type="hidden" name="product" value="{{id}}"> </form></td>
+                <td>{{this.title}}</td>
+                <td>{{this.description}}</td>
+                <td>{{this.price}}</td>
+                <td>{{this.thumbnail}}</td>
+                <td>{{this.category}}</td>
+                <td>{{this.code}}</td>
+                <td>{{this.stock}}</td>
+                <td>
+                    <form action="/api/carts/" method="POST">
+                        <button type="submit" class="add-to-cart" data-id="{{id}}">Agregar al carrito</button>
+                        <input type="hidden" name="product" value="{{id}}">
+                    </form>
+                </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
-      <div class="pagination" style="text-align: center;">
+    <div class="pagination" style="text-align: center;">
         {{#if results.hasPrevPage}}
-            <a href="{{results.prevLink}}">Anterior</a>
+        <a href="{{results.prevLink}}">Anterior</a>
         {{/if}}
         &nbsp;&nbsp;
         {{#if results.hasNextPage}}
-            <a href="{{results.nextLink}}">Siguiente</a>
+        <a href="{{results.nextLink}}">Siguiente</a>
         {{/if}}
     </div>
 </div>

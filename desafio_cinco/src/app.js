@@ -9,6 +9,9 @@ import viewsRouter from './routers/views.js';
 import productRouters from './routers/product.router.js'
 import cartRouters from './routers/cart.router.js'
 import __dirname from './utils.js'
+import dotenv from 'dotenv'
+dotenv.config()
+console.log("Desafio Cinco")
 
 const app = express();
 
@@ -26,7 +29,7 @@ app.use(session({
     secret: 'secretkey',
     resave: false,
     saveUninitialized: true,
-    store: MongoStore.create({ mongoUrl: 'mongodb+srv://gefalleneengel:mongoose@cluster0.dbhlofu.mongodb.net/ecommerce?retryWrites=true&w=majority&appName=Cluster0' }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGO_URL }),
 }));
 app.use(express.static(__dirname + '/public'))
 app.use('/api/sessions', sessionsRouter);

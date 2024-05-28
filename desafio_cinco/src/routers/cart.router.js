@@ -1,6 +1,7 @@
 import { Router } from "express";
 import cartModel from "../dao/models/cart.model.js";
 import productModel from "../dao/models/product.model.js"
+import { isAuthenticated } from "../middleware/auth.js";
 
 const router = Router();
 
@@ -16,7 +17,7 @@ router.get('/', async(req, res) => {
     }
 })
 
-router.get('/:cid', async(req, res) => {
+router.get('/:cid', isAuthenticated, async(req, res) => {
     let { cid } = req.params
     try {
         let cart = await cartModel.findOne({ _id: cid }).populate({
