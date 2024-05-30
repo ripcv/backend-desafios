@@ -6,6 +6,9 @@
             <p>email: {{user.email}}</p>
             <p>role: {{user.role}}</p>
         </div>
+        {{#if cart}}
+        <div><a href="/api/carts/{{cart.cartId}}">Ver carrito aqui</a></div>
+        {{/if}}
         <div class="logout">
             <form action="/api/sessions/logout" method="POST">
                 <button type="submit">Cerrar Sesión</button>

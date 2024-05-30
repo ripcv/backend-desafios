@@ -18,6 +18,11 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
 }
 
+.userInfo a{
+    text-decoration: none;
+    color: rgb(30, 33, 34)
+}
+
 
 .userInfo .user p {
     margin: 0;

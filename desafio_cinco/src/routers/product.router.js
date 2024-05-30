@@ -46,7 +46,7 @@ router.get('/', isAuthenticated,  async(req, res) => {
             prevLink: `/api/products?limit=${products.limit}&page=${products.prevPage}${sort ? `&sort=${sort}`: ""}${query ? `&query=${query}` : ""}`,
             nextLink: `/api/products?limit=${products.limit}&page=${products.nextPage}${sort ? `&sort=${sort}`: ""}${query ? `&query=${query}` : ""}`
         }
-        res.render('products',{results,categories,user: req.session.user,msg})
+        res.render('products',{results,categories,user: req.session.user,msg , cart:req.session.cart})
     } catch (error) {
         console.log(error)
     }
