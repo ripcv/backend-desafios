@@ -17,9 +17,20 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const { email, password } = req.body;
+    let user = []
     try {
-        const user = await User.findOne({ email });
-        if (!user)  return res.render('login', { errorMessage: 'Usuario no encontrado' });
+        if(email === 'adminCoder@coder.com' && password === 'adminCod3r123'){
+           user.email = email,
+           user.first_name = "Admin",
+           user.role = 'admin'
+        }else{
+            user = await User.findOne({ email });
+        }
+        
+        if (!user) {
+            return res.render('login', { errorMessage: 'Usuario no encontrado' });
+        }
+        
              
         req.session.user = {
             id: user._id,
@@ -33,6 +44,7 @@ router.post('/login', async (req, res) => {
         res.redirect('/api/products');
 
     } catch (err) {
+        console.log(err)
         res.status(500).send('Error al iniciar sesión');
     }
 });
