@@ -7,7 +7,7 @@ const router = Router();
 router.post('/register', async (req, res) => {
     const { first_name, last_name, email, age, password } = req.body;
     try {
-        const newUser = new User({ first_name, last_name, email, age, password, role : 'user' });
+        const newUser = new User({ first_name, last_name, email, age, password });
         await newUser.save();
         res.redirect('/');
     } catch (err) {
@@ -21,8 +21,9 @@ router.post('/login', async (req, res) => {
     try {
         if(email === 'adminCoder@coder.com' && password === 'adminCod3r123'){
            user.email = email,
-           user.first_name = "Admin",
+           user.first_name = "Admin"
            user.role = 'admin'
+           user.password = password
         }else{
             user = await User.findOne({ email });
         }
@@ -39,7 +40,7 @@ router.post('/login', async (req, res) => {
                 last_name: user.last_name,
                 email: user.email,
                 age: user.age,
-                role: user.role,
+                role: user.role || ''
             };
             res.redirect('/api/products');
         }else{

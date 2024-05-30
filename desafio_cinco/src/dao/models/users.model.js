@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
     email: { type: String, unique: true },
     age: Number,
     password: String,
-    role: String,
 });
 
 const firstCollection = mongoose.model(userCollection, userSchema);

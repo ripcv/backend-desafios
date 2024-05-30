@@ -4,7 +4,11 @@
         <div class="user">
             <p>Bienvenido {{user.first_name}}&nbsp;{{user.last_name}}</p>
             <p>email: {{user.email}}</p>
-            <p>role: {{user.role}}</p>
+            {{#if isAdmin}}
+            <p>role: Admin</p>
+            {{else}}
+            <p>role: User</p>
+            {{/if}}
         </div>
         {{#if cart}}
         <div><a href="/api/carts/{{cart.cartId}}">Ver carrito aqui</a></div>
