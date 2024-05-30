@@ -5,7 +5,7 @@ import { isAuthenticated } from "../middleware/auth.js";
 const router = Router();
 
 router.get('/', isAuthenticated,  async(req, res) => {
-    let  { limit = 10 , page = 1 ,sort, query } = req.query;
+    let  { limit = 10 , page = 1 ,sort, query , msg } = req.query;
     limit = parseInt(limit)
     page = parseInt(page)
     try {
@@ -46,9 +46,7 @@ router.get('/', isAuthenticated,  async(req, res) => {
             prevLink: `/api/products?limit=${products.limit}&page=${products.prevPage}${sort ? `&sort=${sort}`: ""}${query ? `&query=${query}` : ""}`,
             nextLink: `/api/products?limit=${products.limit}&page=${products.nextPage}${sort ? `&sort=${sort}`: ""}${query ? `&query=${query}` : ""}`
         }
-
-
-        res.render('products',{results,categories,user: req.session.user})
+        res.render('products',{results,categories,user: req.session.user,msg})
     } catch (error) {
         console.log(error)
     }

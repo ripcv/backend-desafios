@@ -9,9 +9,9 @@ router.get('/', async(req, res) => {
     try {
         let carts =  await cartModel.find()
         if (carts.length === 0){
-            res.send({ status: "error", error: "No existen carritos aun" })
+           return  res.send({ status: "error", error: "No existen carritos aun" })
         }
-        res.send({ result: "success" , payload: carts})
+       res.send({ result: "success" , payload: carts})
     } catch (error) {
         console.log(error)
     }
@@ -38,19 +38,31 @@ router.post('/', async (req, res) => {
     let { products = [] } = req.body;
     //asignamos el valor del id proveniente del formulario
     let product = req.body.product
+    
     try {
+        let cartId = req.session.cart ? req.session.cart.cartId : null;
+        let cart
         if (products.length === 0 && !product) {
-            let result = await cartModel.create({});
-            return res.send({ result: "success", payload: result });
+            cart = await cartModel.create({});
+            req.session.cart = { cartId: cart._id };
+            return res.send({ result: "success", payload: cart });
         }
         if(product){
             products = [{
                 product:product
             }]
         }
-        console.log(products)
-        let total = 0;
-        let productWithPrices = []
+        // Buscar el carrito existente en la sesión o crear uno nuevo si no existe
+        if (cartId) {
+           cart = await cartModel.findById(cartId);
+        }
+        if (!cart) {
+            cart = await cartModel.create({});
+            req.session.cart = { cartId: cart._id };
+        }
+
+        let total =  cart.total || 0;
+        let productWithPrices =  cart.products || []
         for (let i = 0; i < products.length; i++) {
             let product = products[i];
             let productPrice = await productModel.findOne({ _id: product.product }).select("price");
@@ -60,15 +72,27 @@ router.post('/', async (req, res) => {
             let price = productPrice.price
             let quantity = product.quantity ?  product.quantity : 1
             let totalProduct = price * quantity
-            productWithPrices.push({
-                product: product.product,
-                quantity: quantity,
-                price: price
-            })
-            total += totalProduct
+
+             // Verificar si el producto ya está en el carrito si esta actualizamos la cantidad si no lo agregamos
+             let existingProductIndex = productWithPrices.findIndex(p => p.product.toString() === product.product);
+             if (existingProductIndex !== -1) {
+                 productWithPrices[existingProductIndex].quantity += quantity;
+                 productWithPrices[existingProductIndex].price = price;  
+             } else {
+                 productWithPrices.push({
+                     product: product.product,
+                     quantity: quantity,
+                     price: price
+                 });
+             }
+             total += totalProduct;
         }
-        let result = await cartModel.create({ products: productWithPrices, total: total });
-        res.send({ result: "success", payload: result });
+        
+        cart.products = productWithPrices
+        cart.total = total
+        await cart.save()
+
+        res.redirect('/api/products?msg=ok')
 
     } catch (error) {
         console.log(error);
