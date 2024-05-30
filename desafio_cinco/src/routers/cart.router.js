@@ -95,7 +95,6 @@ router.post('/', async (req, res) => {
         res.redirect('/api/products?msg=ok')
 
     } catch (error) {
-        console.log(error);
         res.send({ status: "error", error: "Error en el servidor" });
     }
 });

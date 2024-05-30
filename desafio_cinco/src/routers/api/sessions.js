@@ -31,20 +31,23 @@ router.post('/login', async (req, res) => {
             return res.render('login', { errorMessage: 'Usuario no encontrado' });
         }
         
-             
-        req.session.user = {
-            id: user._id,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            email: user.email,
-            age: user.age,
-            role: user.role,
-        };
-        console.log(req.session.user)
-        res.redirect('/api/products');
+        if(user.password === password){
+
+            req.session.user = {
+                id: user._id,
+                first_name: user.first_name,
+                last_name: user.last_name,
+                email: user.email,
+                age: user.age,
+                role: user.role,
+            };
+            res.redirect('/api/products');
+        }else{
+            return res.render('login', { errorMessage: 'Contraseña Incorrecta' });
+        }
+        
 
     } catch (err) {
-        console.log(err)
         res.status(500).send('Error al iniciar sesión');
     }
 });
