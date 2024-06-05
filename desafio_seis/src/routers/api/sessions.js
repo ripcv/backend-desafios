@@ -14,7 +14,6 @@ router.post('/failregister', (req,res)=>{
 })
 router.post('/login',passport.authenticate('login', {failureRedirect: 'faillogin'}), async (req, res) => {
     if(!req.user) return res.status(400).send({status: "error", error: "Datos incompletos"})
-    let user = []
     try {
         req.session.user = {
              first_name: req.user.first_name,
