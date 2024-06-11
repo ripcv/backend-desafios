@@ -3,7 +3,7 @@ import { isAuthenticated, isNotAuthenticated } from '../middleware/auth.js';
 
 const router = Router();
 
-router.get('/', isNotAuthenticated, (req, res) => {
+router.get('/login', isNotAuthenticated, (req, res) => {
     res.render('login');
 });
 

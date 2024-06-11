@@ -4,7 +4,7 @@ import passport from 'passport'
 const router = Router();
 
 router.post('/register', passport.authenticate('register', { failureRedirect: 'failregister'}), async (req, res) => {
-    res.redirect('/')
+    res.redirect('/login')
     //  res.send({status: "success", message: "Usuario Registrado"})
 });
 
@@ -38,7 +38,7 @@ res.send({error:"Login Fallido"})
 router.post('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) return res.status(500).send('Error al cerrar sesión');
-        res.redirect('/');
+        res.redirect('/login');
     });
 });
 
