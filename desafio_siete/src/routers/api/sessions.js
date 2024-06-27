@@ -1,11 +1,13 @@
 import { Router } from 'express';
 import passport from 'passport'
 import { addCartToUser } from '../../utils.js';
-import UsersControllers from '../../controllers/usersControllers.js';
+//import UsersControllers from '../../controllers/usersControllers.js';
 
 const router = Router();
 
-router.post('/register', passport.authenticate('register', { failureRedirect: 'failregister' }), UsersControllers.registerUser);
+router.post('/register', passport.authenticate('register', { failureRedirect: 'failregister' }),async (req, res) =>{
+    res.redirect('/login')
+});
 
 
 router.post('/failregister', (req,res)=>{

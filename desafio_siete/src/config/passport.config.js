@@ -1,9 +1,9 @@
 import passport from "passport";
 import local from 'passport-local'
 import GitHubStrategy from 'passport-github2'
-import UserService from "../services/usersService.js";
+import * as UsersControllers from '../controllers/usersControllers.js'
 import userModel from "../dao/models/users.model.js";
-import { createHash } from "../utils.js";
+import { createHash, isValidPassword } from "../utils.js";
 
 const LocalStrategy = local.Strategy
 
@@ -14,7 +14,7 @@ const initializePassport = () => {
     passport.use('register', new LocalStrategy(
         { passReqToCallback: true, usernameField: 'email' }, async (req, username, password, done) => {
             const { first_name, last_name, email, age } = req.body
-           const newUser = {
+            const newUser = {
             first_name,
             last_name,
             email,
@@ -22,8 +22,7 @@ const initializePassport = () => {
             password: createHash(password)
            }
             try{
-                const result = await UserService.createUser(newUser,username)
-                console.log(result)
+                const result = await UsersControllers.createUser(newUser)
                 return done(null, result)
             } catch (error) {
                 return done("Error al obtener el usuario" + error)

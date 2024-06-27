@@ -1,19 +1,14 @@
 import userModel from "../dao/models/users.model.js";
 
 
-class UserService {
-    async createUser(newUser,username){
-        console.log("Entrando  a Services")
-        console.log(newUser)
+  export  async  function createUser(newUser){
         try {
-            let user = await userModel.findOne({ email: username })
+            let user = await userModel.findOne({ email: newUser.email })
             if (user) {
                 console.log("El usuario ya existe")
                 return
             }
              const result = await userModel.create(newUser)  
-             console.log("Servicio")
-             console.log(result)
              return result
 
         } catch (error) {
@@ -21,7 +16,7 @@ class UserService {
         }
     }
 
-    async findUser(username){
+    export  async  function findUser(username){
         try {
             const user = await userModel.findOne({ email: username })
             if (!user) {
@@ -35,6 +30,3 @@ class UserService {
     }
 
 
-}
-
-export default new UserService

@@ -1,12 +1,11 @@
-import usersService from "../services/usersService.js";
+import * as UserService from "../services/usersService.js"
 
-class UsersControllers{
-
-    async registerUser(req,res, next){
-        res.redirect('/login')
+export  async  function createUser(newUser){
+        try {
+            const result = await UserService.createUser(newUser)
+            return result
+        } catch (error) {
+            return res.redirect('failregister')
+        }
     }
 
-}
-
-
-export default new UsersControllers
