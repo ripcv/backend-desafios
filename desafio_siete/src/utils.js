@@ -1,4 +1,4 @@
-import {fileURLToPath} from 'url'
+import { fileURLToPath } from 'url'
 import { dirname } from 'path'
 import bcrypt from 'bcryptjs'
 import cartModel from './dao/models/cart.model.js'
@@ -14,7 +14,7 @@ export const isValidPassword = (user, password) => bcrypt.compareSync(password, 
 //Funcion para verfificar si existe un cartId asignado al usuario
 
 export const addCartToUser = async (user) => {
-    if(!user.cartId){
+    if (!user.cartId) {
         const newCart = new cartModel();
         await newCart.save();
         user.cartId = newCart._id;

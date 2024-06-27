@@ -15,13 +15,13 @@ const initializePassport = () => {
         { passReqToCallback: true, usernameField: 'email' }, async (req, username, password, done) => {
             const { first_name, last_name, email, age } = req.body
             const newUser = {
-            first_name,
-            last_name,
-            email,
-            age,
-            password: createHash(password)
-           }
-            try{
+                first_name,
+                last_name,
+                email,
+                age,
+                password: createHash(password)
+            }
+            try {
                 const result = await UsersControllers.createUser(newUser)
                 return done(null, result)
             } catch (error) {
@@ -42,24 +42,18 @@ const initializePassport = () => {
 
     passport.use('login', new LocalStrategy({ usernameField: 'email' }, async (username, password, done) => {
         // Se hardcodea el login del administrador
-        if(username === 'adminCoder@coder.com' && password === 'adminCod3r123'){
+        if (username === 'adminCoder@coder.com' && password === 'adminCod3r123') {
             const user = {
-                _id : '6656305eafb60bd4bb71123b',
-                email : username,
-                first_name : "Admin",
-                role : 'admin',
-                password : password
+                _id: '6656305eafb60bd4bb71123b',
+                email: username,
+                first_name: "Admin",
+                role: 'admin',
+                password: password
             }
-            console.log(user)
             return done(null, user)
         }
         try {
-            const user = await userModel.findOne({ email: username })
-            if (!user) {
-                console.log("El usuario no existe")
-                return done(null, user)
-            }
-            if (!isValidPassword(user, password)) return done(null, false)
+            const user = await UsersControllers.findUser(username, password)
             return done(null, user)
         } catch (error) {
             return done(error)
