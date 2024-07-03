@@ -13,8 +13,8 @@ import initializePassport from './config/passport.config.js';
 import { __dirname } from './utils.js'
 import dotenv from 'dotenv'
 dotenv.config()
-console.log("Segunda Pre-entrega")
-
+console.log("Desafio Siete, refactorizando el codigo")
+console.log(process.env.SECRET_KEY)
 const app = express();
 
 app.engine('hbs', engine({
@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(session({
-    secret: 'secretkey',
+    secret: process.env.SECRET_KEY,
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({ mongoUrl: process.env.MONGO_URL,
