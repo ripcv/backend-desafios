@@ -38,7 +38,7 @@
         <p>
             <a href="/api/products">Todas</a>
         </p>
-        {{#each categories}}
+        {{#each products.categories}}
         <p>
             <a href="/api/products?query={{this}}">{{this}}</a>
         </p>
@@ -56,7 +56,7 @@
             <th>Accion</th>
         </thead>
         <tbody>
-            {{#each results.payload}}
+            {{#each products.payload}}
             <tr>
                 <td>{{this.title}}</td>
                 <td>{{this.description}}</td>
@@ -76,12 +76,12 @@
         </tbody>
     </table>
     <div class="pagination" style="text-align: center;">
-        {{#if results.hasPrevPage}}
-        <a href="{{results.prevLink}}">Anterior</a>
+        {{#if products.hasPrevPage}}
+        <a href="{{products.prevLink}}">Anterior</a>
         {{/if}}
         &nbsp;&nbsp;
-        {{#if results.hasNextPage}}
-        <a href="{{results.nextLink}}">Siguiente</a>
+        {{#if products.hasNextPage}}
+        <a href="{{products.nextLink}}">Siguiente</a>
         {{/if}}
     </div>
 </div>
