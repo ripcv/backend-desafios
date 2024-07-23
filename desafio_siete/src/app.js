@@ -14,7 +14,6 @@ import { __dirname } from './utils.js'
 import dotenv from 'dotenv'
 dotenv.config()
 console.log("Desafio Siete, refactorizando el codigo")
-console.log(process.env.SECRET_KEY)
 const app = express();
 
 app.engine('hbs', engine({
