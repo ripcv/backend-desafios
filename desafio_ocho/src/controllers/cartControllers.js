@@ -134,6 +134,12 @@ export async function purchaseCart(req, res) {
   const { cartId } = req.body;
   const cart = await CartServices.getCartById(cartId);
   if (cart.products.length === 0){
+    CustomError.createError({
+      name:"Can't Purchase",
+      cause: generateCartErrorInfo({cart}),
+      message: "Error trying to purchase cart ",
+      code: EErrors.INVALID_TYPES_ERROR
+    })
     return res.status(200).json({ error: true, message: "Carrito Vacio" });
   }
   //validamos el stock y lo descontamos del producto

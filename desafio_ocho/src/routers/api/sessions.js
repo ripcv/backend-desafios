@@ -48,7 +48,7 @@ router.get("/faillogin", (req, res) => {
 router.post("/logout", (req, res) => {
   req.session.destroy((err) => {
     if (err) return res.status(500).send("Error al cerrar sesión");
-    res.redirect("/login");
+    res.redirect("/");
   });
 });
 

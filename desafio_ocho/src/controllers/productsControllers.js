@@ -90,7 +90,12 @@ export async function updateProduct(req, res) {
     });
   }
   if(!productToReplace.title || !productToReplace.description){
-    
+    CustomError.createError({
+      name:"Can't Update Product",
+      cause: generateProductErrorInfo({productToReplace}),
+      message: "Error trying to update Product ",
+      code: EErrors.INVALID_TYPES_ERROR
+  })
   }
   try {
     let result = await ProductService.updateProduct(pid, productToReplace);
