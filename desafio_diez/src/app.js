@@ -23,8 +23,10 @@ import path from "path";
 import dotenv from "dotenv";
 import { addLogger } from "./logger/logger.js";
 import flash from 'connect-flash'
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUiExpress from 'swagger-ui-express'
 dotenv.config();
-console.log("Tercera Practica Integradora");
+console.log("Desafio Nro 10 , Documentación API con Swagger");
 const app = express();
 const PORT = process.env.PORT;
 
@@ -33,6 +35,17 @@ const httpServer = app.listen(
   console.log(`Server running on port ${PORT}`),
 );
 
+const swaggerOptions = {
+  definition:{
+    openapi:'3.0.1',
+    info:{
+      title: "Documentacion API",
+      description: "documentación de api Productos y Cart de la Ticketera"
+    }
+  },
+  apis:[`${__dirname}/docs/**/*.yaml`]
+}
+const specs = swaggerJsdoc(swaggerOptions)
 const socketServer = new Server(httpServer);
 
 app.engine(
@@ -80,6 +93,7 @@ app.use((req, res, next) => {
     res.locals.messages = req.flash();
     next();
 });
+app.use('/apidocs', swaggerUiExpress.serve,swaggerUiExpress.setup(specs))
 app.use(express.static(__dirname + "/public"));
 //api
 app.use("/api/sessions", sessionsRouter);
