@@ -26,8 +26,7 @@ class UserRepository {
     const result = await userModel.updateOne(
       { _id: userID },
       { $set: updates }
-    );
-                                        
+    );                        
   return   result
 
   }

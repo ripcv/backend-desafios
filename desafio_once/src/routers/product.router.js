@@ -5,11 +5,11 @@ import { authorize, ROLES } from "../middleware/authRoles.js";
 
 const router = Router();
 
-router.post("/",  isAuthenticated, ProductController.createProduct);
+router.post("/",  isAuthenticated, authorize([ROLES.admin]), ProductController.createProduct);
 
-router.put("/:pid",  ProductController.updateProduct);
+router.put("/:pid",   isAuthenticated, ProductController.updateProduct);
 
-router.get("/:pid", ProductController.getProductById);
+router.get("/:pid",  isAuthenticated, ProductController.getProductById);
 
 router.delete("/:pid", authorize([ROLES.admin]), ProductController.deleteProduct);
 

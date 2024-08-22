@@ -50,8 +50,6 @@ const initializePassport = () => {
     new LocalStrategy(
       { usernameField: "email" },
       async (username, password, done) => {
-        console.log("Supertest passport")
-        console.log(username, password)
         try {
           const user = await UsersControllers.findUser(username, password);
 

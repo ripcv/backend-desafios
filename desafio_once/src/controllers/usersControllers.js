@@ -41,7 +41,6 @@ export async function updateUser(userID, updates){
 export async function apiUpdateUser(req,res){
    const userID = req.params.uid
    const updates = req.body.updates
-   console.log(userID)
   if(!userID || !updates)
     return res.status(400).json({ message: 'Datos incompletos' });
 
@@ -50,6 +49,9 @@ export async function apiUpdateUser(req,res){
   //recibo el usuario actualizado y redirijo al login
   if(!update){
     return res.status(400).json({ message: 'Error al actualizar el registro' });
+  }
+  if(process.env.TEST_ENV){
+    return res.status(200).send({ status: "success",  message: "Actualización correcta" });
   }
   return res.status(200).json({ message: 'Actualización Correcta' });
 }

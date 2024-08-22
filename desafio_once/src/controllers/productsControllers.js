@@ -1,8 +1,8 @@
 import * as ProductService from "../services/productsService.js";
-import { logger } from '../logger/logger.js'
+import { logger } from "../logger/logger.js";
 
 export async function getAllProducts(req, res) {
-  let { limit = 10, page = 1, sort, query} = req.query;
+  let { limit = 10, page = 1, sort, query } = req.query;
   limit = parseInt(limit);
   page = parseInt(page);
   try {
@@ -10,9 +10,9 @@ export async function getAllProducts(req, res) {
       limit,
       page,
       sort,
-      query,
+      query
     );
-    
+
     return res.render("products", {
       products: products,
       user: req.session.user,
@@ -51,7 +51,6 @@ export async function renderProductForm(req, res) {
   res.render("productForm", { product });
 }
 export async function createProduct(req, res) {
-  console.log("Create Product Controller")
   const productData = req.body;
   if (!productData) {
     res.send({ status: "error", error: "Error en los datos ingresados" });

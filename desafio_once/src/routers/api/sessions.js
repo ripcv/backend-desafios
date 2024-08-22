@@ -35,7 +35,6 @@ router.post(
   "/login",
   passport.authenticate("login", { failureRedirect: "faillogin" }),
   async (req, res) => {
-    console.log("Supertest sessions")
     if (!req.user)
       return res
         .status(400)

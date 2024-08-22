@@ -18,13 +18,16 @@ export async function getCartByIdToRender(req, res) {
   try {
     const cart = await CartServices.getCartById(cid);
     if (!cart) return false;
-    res.render("carts", {
-      cart,
-      cid,
-      user: req.session.user,
-      isAdmin: req.session.user.role === "admin",
-      pageCart: "true",
-    });
+   if(process.env.TEST_ENV){
+    return res.send({ status: "success", payload: cart });
+   }
+   res.render("carts", {
+    cart,
+    cid,
+    user: req.session.user,
+    isAdmin: req.session.user.role === "admin",
+    pageCart: "true",
+  });
   } catch (error) {
     res.send({
       status: "error",
@@ -57,7 +60,7 @@ export async function addProducts(req, res) {
       cart = await CartServices.getCartById(cartId);
     }
 
-    await CartServices.addProducts(cart, products);
+    const response = await CartServices.addProducts(cart, products);
 
     return res.status(200).json({
       success: true,
