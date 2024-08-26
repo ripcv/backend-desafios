@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --watch src/app.js",
-    "test": "node src/tests/supertest.test.js"
+    "test": "node tests/supertest.test.js"
   },
   "keywords": [],
   "author": "",
